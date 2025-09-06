@@ -1,15 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient } from '@sanity/client'
 
 export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'your-project-id',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2023-09-01',
-  useCdn: false,
+  useCdn: process.env.NODE_ENV === 'production' ? false : true, 
+  token: process.env.SANITY_API_TOKEN, 
+  perspective: 'published',
 })
 
-// Helper function để tạo URL hình ảnh
-export const urlFor = (source : any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const urlFor = (source: any) => {
   if (!source?.asset?._ref) return null
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
   const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET

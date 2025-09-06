@@ -7,14 +7,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cdn.sanity.io',
         port: '',
-        pathname: '/images/**',
+        pathname: '/**',
       },
     ],
   },
-  // Nếu bạn dùng Sanity cho internationalization
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
+  experimental: {
+    serverComponentsExternalPackages: ['@sanity/client'],
   },
 }
 

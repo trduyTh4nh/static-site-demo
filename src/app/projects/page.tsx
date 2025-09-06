@@ -1,10 +1,19 @@
+// src/app/projects/page.tsx
 import { client } from '@/lib/sanity'
 import { projectsQuery } from '@/lib/queries'
 import { Project } from '@/types'
 import ProjectsGrid from '@/components/sections/ProjectsGrid'
 
+// QUAN TRỌNG: Đặt revalidate = 0
+export const revalidate = 0;
+
 export default async function ProjectsPage() {
-  const projects = await client.fetch<Project[]>(projectsQuery)
+  // TRÊN VERCEL: Thêm cache: 'no-store'
+  const projects = await client.fetch<Project[]>(
+    projectsQuery, 
+    {}, 
+    { cache: 'no-store' }
+  );
 
   return (
     <main className="pt-20">
